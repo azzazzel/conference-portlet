@@ -6,6 +6,7 @@
 	<portlet>
 		<portlet-name>speakers</portlet-name>
 		<icon>/icon.png</icon>
+		<indexer-class>org.liferay.demo.conference.index.SpeakerIndexer</indexer-class>
 		<custom-attributes-display>org.liferay.demo.conference.expando.SpeakerCustomAttributeDisplay</custom-attributes-display>
 		<header-portlet-css>/css/main.css</header-portlet-css>
 		<footer-portlet-javascript>/js/main.js</footer-portlet-javascript>
