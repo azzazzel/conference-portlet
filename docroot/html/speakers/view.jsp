@@ -4,9 +4,15 @@
 <%
 
 List<Speaker> speakers = SpeakerLocalServiceUtil.getSpeakers(scopeGroupId);
+
+boolean canAdd = permissionChecker.hasPermission(themeDisplay.getScopeGroupId(), ConferenceConstants.MODEL_PACKAGE, themeDisplay.getScopeGroupId(), "ADD_SPEAKER");
+
+boolean showToolbar = canAdd;
 %>
 
+<c:if test="<%=showToolbar %>">
 	<aui:nav-bar>
+			<c:if test="<%=canAdd %>">
 				<aui:nav>
 					<portlet:renderURL var="addSpeakerURL">
 						<portlet:param name="jspPage" value="/html/speakers/edit.jsp" />
@@ -15,7 +21,9 @@ List<Speaker> speakers = SpeakerLocalServiceUtil.getSpeakers(scopeGroupId);
 			
 					<aui:nav-item href="<%= addSpeakerURL %>" iconCssClass="icon-plus" label="add" />
 				</aui:nav>
+			</c:if>
 	</aui:nav-bar>
+</c:if>
 
 
 <ul class="speakers-list unstyled">

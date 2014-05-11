@@ -50,12 +50,18 @@ public class SpeakerServiceImpl extends SpeakerServiceBaseImpl {
 			ServiceContext serviceContext) throws SystemException,
 			PortalException {
 
+		checkPermission(serviceContext.getScopeGroupId(), ConferenceConstants.MODEL_PACKAGE,
+				serviceContext.getScopeGroupId(), "ADD_SPEAKER");
+
 		return speakerLocalService.addSpeaker(name, bio, image, serviceContext);
 	}
 
 	public Speaker updateSpeaker(long speakerId, String name, String bio, InputStream image,
 			ServiceContext serviceContext) throws SystemException,
 			PortalException {
+
+		checkPermission(serviceContext.getScopeGroupId(), Speaker.class.getName(),
+				speakerId, "UPDATE");
 
 		return speakerLocalService
 				.updateSpeaker(speakerId, name, bio, image, serviceContext);
@@ -64,7 +70,18 @@ public class SpeakerServiceImpl extends SpeakerServiceBaseImpl {
 	public Speaker deleteSpeaker(long speakerId, ServiceContext serviceContext)
 			throws SystemException, PortalException {
 
+		checkPermission(serviceContext.getScopeGroupId(),
+				Speaker.class.getName(), speakerId, "DELETE");
+
 		return speakerLocalService.deleteSpeaker(speakerId, serviceContext);
+	}
+
+	private void checkPermission(long siteId, String className, long id,
+			String permission) throws PrincipalException {
+		if (!getPermissionChecker().hasPermission(siteId, className, id,
+				permission)) {
+			throw new PrincipalException();
+		}
 	}
 
 }

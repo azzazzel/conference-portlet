@@ -18,8 +18,11 @@ import com.liferay.counter.service.CounterLocalServiceUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.repository.model.FileEntry;
+import com.liferay.portal.kernel.search.Indexable;
+import com.liferay.portal.kernel.search.IndexableType;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.model.Repository;
+import com.liferay.portal.model.ResourceConstants;
 import com.liferay.portal.model.User;
 import com.liferay.portal.portletfilerepository.PortletFileRepositoryUtil;
 import com.liferay.portal.service.ServiceContext;
@@ -57,7 +60,8 @@ public class SpeakerLocalServiceImpl extends SpeakerLocalServiceBaseImpl {
 	public List<Speaker> getSpeakers(long groupId) throws SystemException {
 		return speakerPersistence.findByGroup(groupId);
 	}
-
+	
+	@Indexable(type = IndexableType.REINDEX)
 	public Speaker addSpeaker(String name, String bio, InputStream image,
 			ServiceContext serviceContext) throws SystemException,
 			PortalException {
@@ -85,9 +89,11 @@ public class SpeakerLocalServiceImpl extends SpeakerLocalServiceBaseImpl {
 
 		saveSpeakerImage(speaker, image, serviceContext);
 
+		addResource(speaker, serviceContext);
 		return speaker;
 	}
 
+	@Indexable(type = IndexableType.DELETE)
 	public Speaker deleteSpeaker(long speakerId, ServiceContext serviceContext)
 			throws PortalException, SystemException {
 
@@ -100,6 +106,10 @@ public class SpeakerLocalServiceImpl extends SpeakerLocalServiceBaseImpl {
 					String.valueOf(speakerId));
 		} catch (Exception e) {
 		}
+
+		resourceLocalService.deleteResource(serviceContext.getCompanyId(),
+				Speaker.class.getName(), ResourceConstants.SCOPE_INDIVIDUAL,
+				speakerId);
 
 		return speakerPersistence.remove(speakerId);
 	}
@@ -114,6 +124,7 @@ public class SpeakerLocalServiceImpl extends SpeakerLocalServiceBaseImpl {
 		}
 	}
 
+	@Indexable(type = IndexableType.REINDEX)
 	public Speaker updateSpeaker(long speakerId, String name, String bio,
 			InputStream image, ServiceContext serviceContext)
 			throws SystemException, PortalException {
@@ -168,4 +179,34 @@ public class SpeakerLocalServiceImpl extends SpeakerLocalServiceBaseImpl {
 					true);
 		}
 	}
+	
+	private void addResource(Speaker speaker, ServiceContext serviceContext)
+			throws PortalException, SystemException {
+
+		if (serviceContext.isAddGroupPermissions()
+				|| serviceContext.isAddGuestPermissions()) {
+
+			resourceLocalService.addResources(speaker.getCompanyId(), // companyId
+					serviceContext.getScopeGroupId(), // groupId
+					serviceContext.getUserId(), // userId
+					Speaker.class.getName(), // name
+					speaker.getSpeakerId(), // primKey
+					false, // portletActions
+					serviceContext.isAddGroupPermissions(), // addGroupPersmissions
+					serviceContext.isAddGuestPermissions() // addGuestPersmissions
+					);
+		} else {
+			resourceLocalService.addModelResources(speaker.getCompanyId(), // companyId
+					serviceContext.getScopeGroupId(), // groupId
+					serviceContext.getUserId(), // userId
+					Speaker.class.getName(), // name
+					speaker.getSpeakerId(), // primKey
+					serviceContext.getGroupPermissions(), // addGroupPersmissions
+					serviceContext.getGuestPermissions() // addGuestPersmissions
+					);
+		}
+
+	}
+
+	
 }

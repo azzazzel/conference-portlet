@@ -32,7 +32,15 @@ if (speakerId > 0) {
 	<aui:input type="textarea" name="bio" />
 
 	<aui:input name="file" type="file" label="photo"/>
-	
+
+	<c:if test="<%= (speaker == null) %>">
+		<aui:field-wrapper label="permissions">
+			<liferay-ui:input-permissions
+				modelName="<%= Speaker.class.getName() %>"
+				/>
+		</aui:field-wrapper>
+	</c:if>
+		
 	<aui:button-row>
 		<aui:button type="submit" />
 	</aui:button-row>
