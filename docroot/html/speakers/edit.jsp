@@ -32,6 +32,15 @@ if (speakerId > 0) {
 	<aui:input type="textarea" name="bio" />
 
 	<aui:input name="file" type="file" label="photo"/>
+	
+	<liferay-ui:custom-attributes-available className="<%= Speaker.class.getName() %>">
+		<liferay-ui:custom-attribute-list
+			className="<%= Speaker.class.getName() %>"
+			classPK="<%= (speaker != null) ? speaker.getSpeakerId() : 0 %>"
+			editable="<%= true %>"
+			label="<%= true %>"
+		/>
+	</liferay-ui:custom-attributes-available>
 
 	<c:if test="<%= (speaker == null) %>">
 		<aui:field-wrapper label="permissions">

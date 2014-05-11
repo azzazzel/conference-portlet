@@ -71,6 +71,14 @@ boolean showToolbar = !hideHeader && (canUpdate || canDelete || canChangePermiss
 
 	<h3 class="speaker-name">
 		<%= speaker.getName() %>
+		<small>
+			<liferay-ui:custom-attribute 
+				name="Position" 
+				classPK="<%= speaker.getSpeakerId() %>" 
+				className="<%= Speaker.class.getName() %>" 
+				label="<%=false %>" 
+				editable="<%=false %>"/>
+		</small>
 	</h3>
 	
 
@@ -80,6 +88,27 @@ boolean showToolbar = !hideHeader && (canUpdate || canDelete || canChangePermiss
 	
 </div>
 
+<div style="float:right; width: 30%; background-color: #FAFAFA; padding: 10px; border: 2px solid silver">
+	<liferay-ui:custom-attributes-available 
+		ignoreAttributeNames="Position" 
+		className="<%= Speaker.class.getName() %>"
+		>
+		<liferay-ui:panel 
+			defaultState="closed" 
+			extended="<%= false %>" 
+			id="speakerCustomAttributesPanel" 
+			persistState="<%= true %>" 
+			title="more-info">
+			
+			<liferay-ui:custom-attribute-list 
+				ignoreAttributeNames="Position"
+				classPK="<%= speaker.getSpeakerId() %>" 
+				className="<%= Speaker.class.getName() %>" 
+				label="<%=true %>" 
+				editable="<%=false %>"/>
+		</liferay-ui:panel>
+	</liferay-ui:custom-attributes-available>
+</div>
 
 <div style="width:100%; text-align: center; clear: both;">
 
