@@ -117,6 +117,17 @@ boolean showToolbar = !hideHeader && (canUpdate || canDelete || canChangePermiss
 	</liferay-ui:custom-attributes-available>
 </div>
 
+<div class="speaker-comments" style="clear:both; padding-top: 20px;">
+	<portlet:actionURL name="invokeTaglibDiscussion" var="discussionURL" />
+	<liferay-ui:discussion
+		className="<%= Speaker.class.getName() %>"
+		classPK="<%= speaker.getSpeakerId() %>"
+		formAction="<%= discussionURL %>"
+		formName="fm2"
+		userId="<%= speaker.getUserId() %>"
+	/>
+</div>	
+
 <div style="width:100%; text-align: center; clear: both;">
 
 	<a class="icon-circle-arrow-left previous-level" title="Back" href="<%=redirect %>"></a>
