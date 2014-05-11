@@ -56,6 +56,34 @@ public class SpeakerServiceWrapper implements SpeakerService,
 		return _speakerService.invokeMethod(name, parameterTypes, arguments);
 	}
 
+	@Override
+	public org.liferay.demo.conference.model.Speaker addSpeaker(
+		java.lang.String name, java.lang.String bio, java.io.InputStream image,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _speakerService.addSpeaker(name, bio, image, serviceContext);
+	}
+
+	@Override
+	public org.liferay.demo.conference.model.Speaker updateSpeaker(
+		long speakerId, java.lang.String name, java.lang.String bio,
+		java.io.InputStream image,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _speakerService.updateSpeaker(speakerId, name, bio, image,
+			serviceContext);
+	}
+
+	@Override
+	public org.liferay.demo.conference.model.Speaker deleteSpeaker(
+		long speakerId, com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _speakerService.deleteSpeaker(speakerId, serviceContext);
+	}
+
 	/**
 	 * @deprecated As of 6.1.0, replaced by {@link #getWrappedService}
 	 */

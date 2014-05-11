@@ -335,6 +335,43 @@ public class SpeakerLocalServiceUtil {
 		return getService().invokeMethod(name, parameterTypes, arguments);
 	}
 
+	public static java.util.List<org.liferay.demo.conference.model.Speaker> getSpeakers(
+		long groupId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().getSpeakers(groupId);
+	}
+
+	public static org.liferay.demo.conference.model.Speaker addSpeaker(
+		java.lang.String name, java.lang.String bio, java.io.InputStream image,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService().addSpeaker(name, bio, image, serviceContext);
+	}
+
+	public static org.liferay.demo.conference.model.Speaker deleteSpeaker(
+		long speakerId, com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService().deleteSpeaker(speakerId, serviceContext);
+	}
+
+	public static void deleteSpeakers(long groupId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		getService().deleteSpeakers(groupId);
+	}
+
+	public static org.liferay.demo.conference.model.Speaker updateSpeaker(
+		long speakerId, java.lang.String name, java.lang.String bio,
+		java.io.InputStream image,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService()
+				   .updateSpeaker(speakerId, name, bio, image, serviceContext);
+	}
+
 	public static void clearService() {
 		_service = null;
 	}

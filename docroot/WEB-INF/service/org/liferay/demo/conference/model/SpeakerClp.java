@@ -535,6 +535,66 @@ public class SpeakerClp extends BaseModelImpl<Speaker> implements Speaker {
 	}
 
 	@Override
+	public boolean hasCustomImage() {
+		try {
+			String methodName = "hasCustomImage";
+
+			Class<?>[] parameterTypes = new Class<?>[] {  };
+
+			Object[] parameterValues = new Object[] {  };
+
+			Boolean returnObj = (Boolean)invokeOnRemoteModel(methodName,
+					parameterTypes, parameterValues);
+
+			return returnObj;
+		}
+		catch (Exception e) {
+			throw new UnsupportedOperationException(e);
+		}
+	}
+
+	@Override
+	public com.liferay.portal.kernel.repository.model.FileEntry getCustomImage() {
+		try {
+			String methodName = "getCustomImage";
+
+			Class<?>[] parameterTypes = new Class<?>[] {  };
+
+			Object[] parameterValues = new Object[] {  };
+
+			com.liferay.portal.kernel.repository.model.FileEntry returnObj = (com.liferay.portal.kernel.repository.model.FileEntry)invokeOnRemoteModel(methodName,
+					parameterTypes, parameterValues);
+
+			return returnObj;
+		}
+		catch (Exception e) {
+			throw new UnsupportedOperationException(e);
+		}
+	}
+
+	@Override
+	public java.lang.String getImageURL(
+		com.liferay.portal.theme.ThemeDisplay themeDisplay) {
+		try {
+			String methodName = "getImageURL";
+
+			Class<?>[] parameterTypes = new Class<?>[] {
+					com.liferay.portal.theme.ThemeDisplay.class
+				};
+
+			Object[] parameterValues = new Object[] { themeDisplay };
+
+			java.lang.String returnObj = (java.lang.String)invokeOnRemoteModel(methodName,
+					parameterTypes, parameterValues);
+
+			return returnObj;
+		}
+		catch (Exception e) {
+			throw new UnsupportedOperationException(e);
+		}
+	}
+
+	@Override
 	public StagedModelType getStagedModelType() {
 		return new StagedModelType(PortalUtil.getClassNameId(
 				Speaker.class.getName()));

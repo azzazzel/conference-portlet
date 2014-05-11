@@ -12,5 +12,5 @@ create table CONFERENCE_Speaker (
 	statusByUserName VARCHAR(75) null,
 	statusDate DATE null,
 	name VARCHAR(75) null,
-	bio VARCHAR(75) null
+	bio VARCHAR(1000) null
 );

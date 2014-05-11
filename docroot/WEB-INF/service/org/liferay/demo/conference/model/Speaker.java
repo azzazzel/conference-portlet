@@ -31,4 +31,16 @@ public interface Speaker extends SpeakerModel, PersistedModel {
 	 *
 	 * Never modify this interface directly. Add methods to {@link org.liferay.demo.conference.model.impl.SpeakerImpl} and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
+	public com.liferay.portal.kernel.repository.model.FileEntry getCustomImage()
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException;
+
+	public java.lang.String getImageURL(
+		com.liferay.portal.theme.ThemeDisplay themeDisplay)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException;
+
+	public boolean hasCustomImage()
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException;
 }

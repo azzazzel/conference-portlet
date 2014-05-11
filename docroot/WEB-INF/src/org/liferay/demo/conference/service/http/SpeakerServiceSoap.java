@@ -14,6 +14,13 @@
 
 package org.liferay.demo.conference.service.http;
 
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
+
+import org.liferay.demo.conference.service.SpeakerServiceUtil;
+
+import java.rmi.RemoteException;
+
 /**
  * Provides the SOAP utility for the
  * {@link org.liferay.demo.conference.service.SpeakerServiceUtil} service utility. The
@@ -55,4 +62,21 @@ package org.liferay.demo.conference.service.http;
  * @generated
  */
 public class SpeakerServiceSoap {
+	public static org.liferay.demo.conference.model.SpeakerSoap deleteSpeaker(
+		long speakerId, com.liferay.portal.service.ServiceContext serviceContext)
+		throws RemoteException {
+		try {
+			org.liferay.demo.conference.model.Speaker returnValue = SpeakerServiceUtil.deleteSpeaker(speakerId,
+					serviceContext);
+
+			return org.liferay.demo.conference.model.SpeakerSoap.toSoapModel(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	private static Log _log = LogFactoryUtil.getLog(SpeakerServiceSoap.class);
 }

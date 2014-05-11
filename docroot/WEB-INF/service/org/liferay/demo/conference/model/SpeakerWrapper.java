@@ -746,6 +746,28 @@ public class SpeakerWrapper implements Speaker, ModelWrapper<Speaker> {
 	}
 
 	@Override
+	public com.liferay.portal.kernel.repository.model.FileEntry getCustomImage()
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _speaker.getCustomImage();
+	}
+
+	@Override
+	public java.lang.String getImageURL(
+		com.liferay.portal.theme.ThemeDisplay themeDisplay)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _speaker.getImageURL(themeDisplay);
+	}
+
+	@Override
+	public boolean hasCustomImage()
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _speaker.hasCustomImage();
+	}
+
+	@Override
 	public boolean equals(Object obj) {
 		if (this == obj) {
 			return true;

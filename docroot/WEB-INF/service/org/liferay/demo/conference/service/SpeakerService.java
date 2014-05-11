@@ -63,4 +63,22 @@ public interface SpeakerService extends BaseService, InvokableService {
 	public java.lang.Object invokeMethod(java.lang.String name,
 		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
 		throws java.lang.Throwable;
+
+	public org.liferay.demo.conference.model.Speaker addSpeaker(
+		java.lang.String name, java.lang.String bio, java.io.InputStream image,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException;
+
+	public org.liferay.demo.conference.model.Speaker updateSpeaker(
+		long speakerId, java.lang.String name, java.lang.String bio,
+		java.io.InputStream image,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException;
+
+	public org.liferay.demo.conference.model.Speaker deleteSpeaker(
+		long speakerId, com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException;
 }

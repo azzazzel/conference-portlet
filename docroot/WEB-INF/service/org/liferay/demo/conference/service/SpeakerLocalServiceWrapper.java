@@ -348,6 +348,48 @@ public class SpeakerLocalServiceWrapper implements SpeakerLocalService,
 		return _speakerLocalService.invokeMethod(name, parameterTypes, arguments);
 	}
 
+	@Override
+	public java.util.List<org.liferay.demo.conference.model.Speaker> getSpeakers(
+		long groupId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _speakerLocalService.getSpeakers(groupId);
+	}
+
+	@Override
+	public org.liferay.demo.conference.model.Speaker addSpeaker(
+		java.lang.String name, java.lang.String bio, java.io.InputStream image,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _speakerLocalService.addSpeaker(name, bio, image, serviceContext);
+	}
+
+	@Override
+	public org.liferay.demo.conference.model.Speaker deleteSpeaker(
+		long speakerId, com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _speakerLocalService.deleteSpeaker(speakerId, serviceContext);
+	}
+
+	@Override
+	public void deleteSpeakers(long groupId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		_speakerLocalService.deleteSpeakers(groupId);
+	}
+
+	@Override
+	public org.liferay.demo.conference.model.Speaker updateSpeaker(
+		long speakerId, java.lang.String name, java.lang.String bio,
+		java.io.InputStream image,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _speakerLocalService.updateSpeaker(speakerId, name, bio, image,
+			serviceContext);
+	}
+
 	/**
 	 * @deprecated As of 6.1.0, replaced by {@link #getWrappedService}
 	 */
