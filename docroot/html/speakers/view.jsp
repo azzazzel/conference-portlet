@@ -46,6 +46,13 @@ boolean showToolbar = canAdd;
 	
 		<h3 class="speaker-name">
 			<a href="<%=viewURL %>"><%= speaker.getName() %></a>
+			<small>
+				<% 
+					RatingsEntry ratingsEntry = RatingsEntryLocalServiceUtil.fetchEntry(themeDisplay.getUserId(), Speaker.class.getName(), speaker.getSpeakerId()); 
+				%>
+				<liferay-ui:ratings-score score="<%=ratingsEntry == null ? 0 : ratingsEntry.getScore() %>" />
+				
+			</small>
 		</h3>
 		
 		<div class="speaker-bio">	

@@ -79,6 +79,13 @@ boolean showToolbar = !hideHeader && (canUpdate || canDelete || canChangePermiss
 				label="<%=false %>" 
 				editable="<%=false %>"/>
 		</small>
+		<small>
+			<liferay-ui:ratings 
+				className="<%= Speaker.class.getName() %>"
+				classPK="<%= speakerId %>"
+			/>
+			
+		</small>
 	</h3>
 	
 
