@@ -115,6 +115,14 @@ boolean showToolbar = !hideHeader && (canUpdate || canDelete || canChangePermiss
 				editable="<%=false %>"/>
 		</liferay-ui:panel>
 	</liferay-ui:custom-attributes-available>
+	
+	<liferay-ui:panel defaultState="closed" extended="<%= false %>" id="speakerCategorizationPanel" persistState="<%= true %>" title="categorization">
+	
+		<liferay-ui:asset-categories-summary classPK="<%= speaker.getSpeakerId() %>" className="<%= Speaker.class.getName() %>"  />
+	
+		<liferay-ui:asset-tags-summary classPK="<%= speaker.getSpeakerId() %>" className="<%= Speaker.class.getName() %>" />
+		
+	</liferay-ui:panel>
 </div>
 
 <div class="speaker-comments" style="clear:both; padding-top: 20px;">
