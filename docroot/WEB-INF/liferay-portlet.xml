@@ -7,6 +7,8 @@
 		<portlet-name>speakers</portlet-name>
 		<icon>/icon.png</icon>
 		<indexer-class>org.liferay.demo.conference.index.SpeakerIndexer</indexer-class>
+		<portlet-data-handler-class>org.liferay.demo.conference.lar.ConferencePortletDataHandler</portlet-data-handler-class>
+		<staged-model-data-handler-class>org.liferay.demo.conference.lar.SpeakerStagedModelDataHandler</staged-model-data-handler-class>
 		<asset-renderer-factory>org.liferay.demo.conference.asset.SpeakerAssetRendererFactory</asset-renderer-factory>
 		<custom-attributes-display>org.liferay.demo.conference.expando.SpeakerCustomAttributeDisplay</custom-attributes-display>
 		<header-portlet-css>/css/main.css</header-portlet-css>
