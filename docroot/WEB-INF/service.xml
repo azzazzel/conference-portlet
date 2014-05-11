@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE service-builder PUBLIC "-//Liferay//DTD Service Builder 6.2.0//EN" "http://www.liferay.com/dtd/liferay-service-builder_6_2_0.dtd">
+
+<service-builder package-path="org.liferay.demo.conference">
+
+	<author>Milen Dyankov</author>
+	<namespace>CONFERENCE</namespace>
+
+	<entity name="Speaker" local-service="true" remote-service="true" uuid="true" trash-enabled="true">
+
+		<!-- Primary key column -->
+		<column name="speakerId" type="long" primary="true" />
+
+		<!-- Foreign key columns -->
+		<column name="companyId" type="long" />
+		<column name="groupId" type="long" />
+		<column name="userId" type="long" />
+		<column name="userName" type="String" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+		<column name="status" type="int" />
+		<column name="statusByUserId" type="long" />
+		<column name="statusByUserName" type="String" />
+		<column name="statusDate" type="Date" />
+
+
+		<!-- Other columns -->
+		<column name="name" type="String" />
+		<column name="bio" type="String" />
+
+		<!-- Standard Finder Methods  -->
+		<finder name="Group" return-type="Collection">
+			<finder-column name="groupId" />
+		</finder>
+		
+		<finder name="GroupAndName" return-type="Collection">
+			<finder-column name="groupId" />
+			<finder-column name="name" case-sensitive="false" comparator="LIKE" />
+		</finder>
+
+		<!-- References -->
+		<reference package-path="com.liferay.portal" entity="Company" />
+		<reference package-path="com.liferay.portal" entity="Group" />
+		<reference package-path="com.liferay.portlet.asset" entity="AssetEntry" />
+		<reference package-path="com.liferay.portlet.asset" entity="AssetLink" />
+		<reference package-path="com.liferay.portlet.expando" entity="ExpandoValue" />		
+	</entity>
+	
+</service-builder>
