@@ -58,6 +58,15 @@ if (speakerId > 0) {
 		</aui:fieldset>
 	</liferay-ui:panel>
 	
+	<liferay-ui:panel defaultState="closed" extended="<%= false %>" id="speakerAssetLinksPanel" persistState="<%= true %>" title="related-assets">
+		<aui:fieldset>
+			<liferay-ui:input-asset-links
+				className="<%= Speaker.class.getName() %>"
+				classPK="<%= speakerId %>"
+			/>
+		</aui:fieldset>
+	</liferay-ui:panel>
+
 	<aui:button-row>
 		<aui:button type="submit" />
 	</aui:button-row>

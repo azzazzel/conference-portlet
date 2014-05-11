@@ -96,6 +96,15 @@ boolean showToolbar = !hideHeader && (canUpdate || canDelete || canChangePermiss
 </div>
 
 <div style="float:right; width: 30%; background-color: #FAFAFA; padding: 10px; border: 2px solid silver">
+	<liferay-ui:panel defaultState="open" extended="<%= false %>" id="speakerAssetLinksPanel" persistState="<%= true %>" title="talks">
+		<aui:fieldset>
+			<liferay-ui:asset-links 
+				className="<%= Speaker.class.getName() %>"
+				classPK="<%= speakerId %>"
+			/>
+		</aui:fieldset>
+	</liferay-ui:panel>
+	
 	<liferay-ui:custom-attributes-available 
 		ignoreAttributeNames="Position" 
 		className="<%= Speaker.class.getName() %>"
