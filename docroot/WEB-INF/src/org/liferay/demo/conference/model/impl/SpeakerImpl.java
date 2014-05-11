@@ -14,6 +14,18 @@
 
 package org.liferay.demo.conference.model.impl;
 
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.repository.model.FileEntry;
+import com.liferay.portal.kernel.util.StringPool;
+import com.liferay.portal.model.Repository;
+import com.liferay.portal.portletfilerepository.PortletFileRepositoryUtil;
+import com.liferay.portal.theme.ThemeDisplay;
+import com.liferay.portlet.documentlibrary.model.DLFolderConstants;
+import com.liferay.portlet.documentlibrary.util.DLUtil;
+
+import org.liferay.demo.conference.ConferenceConstants;
+
 /**
  * The extended model implementation for the Speaker service. Represents a row in the &quot;CONFERENCE_Speaker&quot; database table, with each column mapped to a property of this class.
  *
@@ -31,4 +43,52 @@ public class SpeakerImpl extends SpeakerBaseImpl {
 	 */
 	public SpeakerImpl() {
 	}
+	
+	public FileEntry getCustomImage() throws SystemException, PortalException {
+		Repository repository = PortletFileRepositoryUtil
+				.fetchPortletRepository(getGroupId(),
+						ConferenceConstants.FILE_REPOSITORY);
+
+		if (repository == null) {
+			return null;
+		}
+
+		FileEntry fileEntry = null;
+		try {
+			return PortletFileRepositoryUtil.getPortletFileEntry(
+					repository.getRepositoryId(),
+					DLFolderConstants.DEFAULT_PARENT_FOLDER_ID,
+					String.valueOf(getSpeakerId()));
+		} catch (Exception e) {
+		}
+
+		return fileEntry;
+	}
+
+	
+	public String getImageURL(ThemeDisplay themeDisplay)
+			throws PortalException, SystemException {
+
+		FileEntry fileEntry = getCustomImage();
+
+		if (fileEntry != null) {
+			return DLUtil.getPreviewURL(fileEntry,
+					fileEntry.getLatestFileVersion(), themeDisplay,
+					StringPool.BLANK);
+		} else {
+			return themeDisplay.getPortalURL()
+					+ ConferenceConstants.APP_CONTEXT + "/images/speaker.jpg";
+		}
+	}
+
+	public boolean hasCustomImage() throws PortalException, SystemException {
+		FileEntry fileEntry = getCustomImage();
+
+		if (fileEntry != null) {
+			return true;
+		}
+
+		return false;
+	}
+
 }

@@ -14,6 +14,15 @@
 
 package org.liferay.demo.conference.service.impl;
 
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.security.auth.PrincipalException;
+import com.liferay.portal.service.ServiceContext;
+
+import java.io.InputStream;
+
+import org.liferay.demo.conference.ConferenceConstants;
+import org.liferay.demo.conference.model.Speaker;
 import org.liferay.demo.conference.service.base.SpeakerServiceBaseImpl;
 
 /**
@@ -36,4 +45,26 @@ public class SpeakerServiceImpl extends SpeakerServiceBaseImpl {
 	 *
 	 * Never reference this interface directly. Always use {@link org.liferay.demo.conference.service.SpeakerServiceUtil} to access the speaker remote service.
 	 */
+	
+	public Speaker addSpeaker(String name, String bio, InputStream image,
+			ServiceContext serviceContext) throws SystemException,
+			PortalException {
+
+		return speakerLocalService.addSpeaker(name, bio, image, serviceContext);
+	}
+
+	public Speaker updateSpeaker(long speakerId, String name, String bio, InputStream image,
+			ServiceContext serviceContext) throws SystemException,
+			PortalException {
+
+		return speakerLocalService
+				.updateSpeaker(speakerId, name, bio, image, serviceContext);
+	}
+
+	public Speaker deleteSpeaker(long speakerId, ServiceContext serviceContext)
+			throws SystemException, PortalException {
+
+		return speakerLocalService.deleteSpeaker(speakerId, serviceContext);
+	}
+
 }
