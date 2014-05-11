@@ -115,3 +115,9 @@ boolean showToolbar = !hideHeader && (canUpdate || canDelete || canChangePermiss
 	<a class="icon-circle-arrow-left previous-level" title="Back" href="<%=redirect %>"></a>
 </div>
 
+<style>
+	#p_p_id<portlet:namespace/> .asset-links-title,
+	#portlet<portlet:namespace/> .asset-links-title {
+		display: none;
+	}
+</style>

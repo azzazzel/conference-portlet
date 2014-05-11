@@ -20,12 +20,15 @@ import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.repository.model.FileEntry;
 import com.liferay.portal.kernel.search.Indexable;
 import com.liferay.portal.kernel.search.IndexableType;
+import com.liferay.portal.kernel.util.ContentTypes;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.model.Repository;
 import com.liferay.portal.model.ResourceConstants;
 import com.liferay.portal.model.User;
 import com.liferay.portal.portletfilerepository.PortletFileRepositoryUtil;
 import com.liferay.portal.service.ServiceContext;
+import com.liferay.portlet.asset.model.AssetEntry;
+import com.liferay.portlet.asset.model.AssetLinkConstants;
 import com.liferay.portlet.documentlibrary.model.DLFolderConstants;
 
 import java.io.InputStream;
@@ -90,6 +93,7 @@ public class SpeakerLocalServiceImpl extends SpeakerLocalServiceBaseImpl {
 		saveSpeakerImage(speaker, image, serviceContext);
 
 		addResource(speaker, serviceContext);
+		updateAsset(speaker, serviceContext);
 		return speaker;
 	}
 
@@ -98,6 +102,13 @@ public class SpeakerLocalServiceImpl extends SpeakerLocalServiceBaseImpl {
 			throws PortalException, SystemException {
 
 		Speaker speaker = speakerPersistence.findByPrimaryKey(speakerId);
+
+		AssetEntry asset = assetEntryLocalService.fetchEntry(
+				Speaker.class.getName(), speakerId);
+		if (asset != null) {
+			assetLinkLocalService.deleteLinks(asset.getEntryId());
+			assetEntryLocalService.deleteAssetEntry(asset);
+		}
 
 		try {
 			PortletFileRepositoryUtil.deletePortletFileEntry(
@@ -139,6 +150,7 @@ public class SpeakerLocalServiceImpl extends SpeakerLocalServiceBaseImpl {
 
 		saveSpeakerImage(speaker, image, serviceContext);
 
+		updateAsset(speaker, serviceContext);
 		return speaker;
 	}
 
@@ -208,5 +220,41 @@ public class SpeakerLocalServiceImpl extends SpeakerLocalServiceBaseImpl {
 
 	}
 
-	
+	private AssetEntry updateAsset(Speaker speaker,
+			ServiceContext serviceContext) throws PortalException,
+			SystemException {
+
+		AssetEntry asset = assetEntryLocalService.updateEntry(
+				serviceContext.getUserId(), // userId
+				speaker.getGroupId(), // groupId
+				speaker.getCreateDate(), // create date
+				speaker.getModifiedDate(), // modified date
+				Speaker.class.getName(), // className
+				speaker.getSpeakerId(), // classPK
+				speaker.getUuid(), // classUuid
+				0, // classTypeId
+				serviceContext.getAssetCategoryIds(), // categoryIds
+				serviceContext.getAssetTagNames(), // tagNames
+				true, // visible
+				null, // startDate
+				null, // endDate
+				null, // expirationDate
+				ContentTypes.TEXT_HTML, // mimeType
+				speaker.getName(), // title
+				null, // description
+				null, // summary
+				null, // url
+				null, // layoutUuid
+				0, // height
+				0, // width
+				null, // priority
+				false // sync
+				);
+
+		assetLinkLocalService.updateLinks(serviceContext.getUserId(),
+				asset.getEntryId(), serviceContext.getAssetLinkEntryIds(),
+				AssetLinkConstants.TYPE_RELATED);
+
+		return asset;
+	}
 }
